@@ -7,8 +7,6 @@ stock = [[12, 23, 14],
 
 stock = np.asarray(stock)
 
-stock[1][1]
-
 def floor_paint_eval(stock, A):
     p1 = 0
     p2 = 0
@@ -31,33 +29,31 @@ def floor_paint_eval(stock, A):
                 p3 = p3 + 1
             p2 = p2 + 1
         p1 = p1 + 1
-            
-    
-    """
-    print(np.where((all_comb > 100) == True, all_comb, np.zeros((3,3,3,3), dtype=int)))
-    np.where((all_comb>=90))
-    print(all_comb.shape)
-    """
     
     output = (all_comb>=A).nonzero()
-    
-    total_usage = np.sum(np.where((all_comb >= A) == True, all_comb, np.zeros((3,3,3,3), dtype=int)))
-    
-    wastage = total_usage - A*len(output[0])
+    #print(output)
     
     final_output = []
     
+    min_usage_ind = 10e10
     for i in range(len(output[0])): 
-        final_output.append([(0,output[0][i]), (0,output[1][i]), (0,output[2][i]), (0,output[3][i])])
+        if all_comb[output[0][i], output[1][i], output[2][i], output[3][i]] < min_usage_ind:
+            min_usage_ind = all_comb[output[0][i], output[1][i], output[2][i], output[3][i]]    
+            final_output = [(0,output[0][i]), (0,output[1][i]), (0,output[2][i]), (0,output[3][i])]
     
-    return final_output, wastage
+    print(min_usage_ind)
+    wastage = min_usage_ind - A
+    
+    return final_output, wastage, min_usage_ind
 
 # Question 1 and 2
-f_o, waste = floor_paint_eval(stock, 100)
+f_o, waste, usage = floor_paint_eval(stock, 100)
 print(f_o)
 print(waste)
+print(usage)
 
 # Question 3
-f_o, waste = floor_paint_eval(stock, 90)
+f_o, waste, usage = floor_paint_eval(stock, 90)
 print(f_o)
 print(waste)
+print(usage)
