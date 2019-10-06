@@ -35,14 +35,8 @@ def floor_paint_eval(stock, A):
     
     """
     print(np.where((all_comb > 100) == True, all_comb, np.zeros((3,3,3,3), dtype=int)))
-    
-    np.where((all_comb<90))
-    all_comb[0, 1, 1, 1, 2]
-    
+    np.where((all_comb>=90))
     print(all_comb.shape)
-    
-    
-    print(np.where((all_comb > 100) == True)
     """
     
     output = (all_comb>=A).nonzero()
